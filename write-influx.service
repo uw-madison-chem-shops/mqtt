@@ -1,0 +1,12 @@
+
+[Unit]
+Description=write-influx
+
+[Service]
+Type=simple
+User=blaise
+ExecStart=<path-to-python-file>
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
