@@ -20,3 +20,7 @@ https://www.influxdata.com/
 
 `write_influx.py`
 
+move service file to /etc/systemd/system/
+`systemctl enable write-influx.service`
+`systemctl start write-influx.service`
+now it will run forever
