@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" name="viewport" content="width=80ch">
+  <title>mosquitto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>mosquitto.chem.wisc.edu</h1>
+
+<hr>
+
+<p>
+This server hosts an <a href="https://en.wikipedia.org/wiki/MQTT">MQTT</a> broker for "internet of things" applications within the <a href="https://chem.wisc.edu">Department of Chemistry</a> at the <a href="https://wisc.edu">University of Wisconsin-Madison</a>. <br>
+In particular, this server hosts:
+</p>
+
+<ul>
+  <li><a href="https://mosquitto.org/">mosquitto</a>, an MQTT broker</li>
+  <li><a href="https://www.influxdata.com/">influxdb</a>, a time series database</li>
+</ul>
+
+<p>
+This server is purposefully isolated to the campus network. <br>
+If you are reading this, congrats---you're on the network.
+</p>
+
+<p>
+This server is maintained by Blaise Thompson and Alan Silver. <br>
+Please contact them with any questions or concerns.
+</p>
+
+<h2>mosquitto</h2>
+
+<p>
+This server runs <a href="https://mosquitto.org/">mosquitto</a>, an MQTT broker.
+Briefly, MQTT is a lightweight publish-subscribe protocol that allows many devices to communicate.
+The broker provides structured topics, e.g. "sensor42/temperature" and "instrument9/opa2/wavelength".
+Clients can publish topic updates.
+Other clients can subscribe to be notified each time a topic is updated.
+Refer to <a href="https://mqtt.org">mqtt.org</a> for more information.
+</p>
+
+<p>
+Anyone on the campus network can subscribe to the topics served here.
+There are lots of great MQTT clients you can use.
+We recommend:
+</p>
+
+<ul>
+  <li><a href="https://mosquitto.org/man/mosquitto_sub-1.html">mosquitto_sub</a> (command line interface)</li>
+  <li><a href="https://github.com/eerimoq/mqttools">mqttools</a> (python)</li>
+  <li><a href="https://www.eclipse.org/paho/">paho</a> (many languages)</a></li>
+</ul>
+
+<p>
+You'll need a password to publish to this broker.
+Talk to Blaise Thompson or Alan Silver if you want to start publishing.
+</p>
+
+<h2>influxdb</h2>
+
+<p>
+The Chemistry Department has standardized on the <a href="https://homieiot.github.io/">homie convention</a>.
+This convention imposes a well-defined structure on top of the basic MQTT communication layer.
+This structure introduces a "device" topology.
+
+<p>
+This server stores all homie device history to an <a href="https://www.influxdata.com/">influx</a> time-series database.
+Anyone on the campus network can query this database.
+Importantly, only homie-convention compliant MQTT topics are stored---other published topics are not recorded in any permanent way.
+</p>
+
+<p>
+While we make every attempt to prevent data loss, please do not treat this database as an archive.
+You are responsible for saving data that you care about in a more permanent way.
+Device history older than two years will automatically be deleted.
+</p>
+
+<p>
+EXAMPLE CURL
+</p>
+
+<p>
+EXAMPLE PYTHON
+</p>
+
+<p>
+RECOMMEND GRAFANA
+</p>
+
+<hr>
+
+<p>
+<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>: no copyright
+</p>
+
+</body>
+</html>

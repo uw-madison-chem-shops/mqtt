@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  broker:
+    build: ./mosquitto
+    ports:
+      - 1883:1883
+  db:
+    image: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - ./db:/var/lin/influxdb
+  write-influx:
+    build: ./write-influx
+    depends_on:
+      - broker
+      - db
+  web:
+    build: ./web
+    ports:
+      - 8080:80
+    depends_on:
+      - broker
+      - db
+      - write-influx

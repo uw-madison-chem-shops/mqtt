@@ -1,12 +1,11 @@
 # mqtt
 
-documentation and source code for departmental mqtt server
+Documentation and source code for departmental mqtt server hosted at https://mosquitto.chem.wisc.edu.
 
-hosted at https://mosquitto.chem.wisc.edu
-
-## operating system
-
-ubuntu 20.04
+To run:
+```
+$ docker-compose up
+```
 
 ## mosquitto
 

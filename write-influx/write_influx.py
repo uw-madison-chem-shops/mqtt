@@ -53,15 +53,14 @@ def on_message(client, userdata, msg):
         measurement = topics[3]
         tags["node"] = topics[2]
         datatype = homie[topics[1]][topics[2]][topics[3]]["$datatype"]["__value__"]
-        print(datatype, datatype=="float")
         if datatype == "float":
             fields = {"value": float(payload)}
         else:
-            raise KeyError
+            return
         write_point(measurement, tags, fields)
 
 
-influx_client = InfluxDBClient('localhost', 8086, 'root', 'root', "homie")
+influx_client = InfluxDBClient("db", 8086, 'root', 'root', "homie")
 influx_client.create_database("homie")
 
 
@@ -82,7 +81,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("mosquitto.chem.wisc.edu", 1883, 60)
+client.connect("broker", 1883, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
