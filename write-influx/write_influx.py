@@ -9,7 +9,6 @@ from typing import List, Dict
 
 
 class Topic(dict):
-
     def __init__(self):
         super().__init__()
         self["__value__"] = None
@@ -43,7 +42,14 @@ def on_message(client, userdata, msg):
     tags = {}
     tags["device_id"] = topics[1]
     # case of device attribute
-    device_attributes = ["$homie", "$name", "$state", "$nodes", "$extensions", "$implementation"]
+    device_attributes = [
+        "$homie",
+        "$name",
+        "$state",
+        "$nodes",
+        "$extensions",
+        "$implementation",
+    ]
     if len(topics) == 3 and topics[2] in device_attributes:
         measurement = topics[2]
         fields = {"value": payload}
@@ -60,11 +66,21 @@ def on_message(client, userdata, msg):
         write_point(measurement, tags, fields)
 
 
-influx_client = InfluxDBClient("db", 8086, 'root', 'root', "homie")
+influx_client = InfluxDBClient(host="db",
+                               port=8086,
+                               username="admin",
+                               password="mypassword",
+                               database="homie")
 
 influx_client.create_database("homie")
 try:
-    influx_client.create_retention_policy(name="two-years", database="homie", duration="18000h", default=True, replication=1)
+    influx_client.create_retention_policy(
+        name="two-years",
+        database="homie",
+        duration="18000h",
+        default=True,
+        replication=1,
+    )
 except:
     pass
 
@@ -79,7 +95,6 @@ def write_point(measurement, tags, fields):
     except Exception as e:
         print(e)
     print(json)
-
 
 
 client = mqtt.Client()
