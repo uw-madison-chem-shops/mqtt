@@ -75,7 +75,7 @@ def write_point(measurement, tags, fields):
     json["tags"] = tags
     json["fields"] = fields
     try:
-        influx_client.write_points([json], retention_policy="two-years")
+        influx_client.write_points([json])
     except Exception as e:
         print(e)
     print(json)
@@ -86,7 +86,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("mqtt", 1883, 60)
+client.connect("broker", 1883, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
