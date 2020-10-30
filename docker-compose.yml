@@ -6,11 +6,11 @@ services:
     ports:
       - 1883:1883
   db:
-    image: influxdb
+    build: ./influxdb
     ports:
       - 8086:8086
     volumes:
-      - ./db:/var/lin/influxdb
+      - influxdb:/var/lib/influxdb
   write-influx:
     build: ./write-influx
     depends_on:
@@ -24,3 +24,6 @@ services:
       - broker
       - db
       - write-influx
+
+volumes:
+  influxdb:

@@ -61,7 +61,12 @@ def on_message(client, userdata, msg):
 
 
 influx_client = InfluxDBClient("db", 8086, 'root', 'root', "homie")
+
 influx_client.create_database("homie")
+try:
+    influx_client.create_retention_policy(name="two-years", database="homie", duration="18000h", default=True, replication=1)
+except:
+    pass
 
 
 def write_point(measurement, tags, fields):
@@ -70,7 +75,7 @@ def write_point(measurement, tags, fields):
     json["tags"] = tags
     json["fields"] = fields
     try:
-        influx_client.write_points([json])
+        influx_client.write_points([json], retention_policy="two-years")
     except Exception as e:
         print(e)
     print(json)
@@ -81,7 +86,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("broker", 1883, 60)
+client.connect("mosquitto.chem.wisc.edu", 1883, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
