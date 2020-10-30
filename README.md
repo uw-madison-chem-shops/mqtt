@@ -2,24 +2,18 @@
 
 Documentation and source code for departmental mqtt server hosted at https://mosquitto.chem.wisc.edu.
 
+To prepare (starting with Ubuntu 20.04)
+```
+$ apt install docker.io
+$ apt install docker compose
+```
+
+This machine needs the following ports to be open to the campus network:
+- 80 (http)
+- 1883 (mqtt)
+- 8086 (influxdb)
+
 To run:
 ```
-$ docker-compose up
+$ docker-compose up --build
 ```
-
-## mosquitto
-
-https://mosquitto.org/
-
-## influxdb
-
-https://www.influxdata.com/
-
-## bridge daemon
-
-`write_influx.py`
-
-move service file to /etc/systemd/system/
-`systemctl enable write-influx.service`
-`systemctl start write-influx.service`
-now it will run forever
