@@ -68,8 +68,8 @@ def on_message(client, userdata, msg):
 
 influx_client = InfluxDBClient(host="db",
                                port=8086,
-                               username="admin",
-                               password="mypassword",
+                               username="root",
+                               password="root",
                                database="homie")
 
 influx_client.create_database("homie")

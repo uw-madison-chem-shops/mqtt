@@ -81,25 +81,43 @@ Device history older than two years will automatically be deleted.
 </p>
 
 <p>
-Homie data is written to the database with each [node] as one [field].
+Homie data is written to the database with each node corresponding to one field.
 All of the additional information that is represented within the homie hierarchy is stored as tags.
 </p>
 
 <p>
-EXAMPLE CURL
+The following example will return all of the recorded "temperature" measurements within the last one day using curl.
 </p>
 
-<p>
-EXAMPLE PYTHON
-</p>
+<pre><code>
+curl -G 'mosquitto.chem.wisc.edu:8086/query?pretty=true' --data-urlencode "db=homie" --data-urlencode "q=SELECT \"value\" FROM \"temperature\" WHERE time > now() - 1d"
+
+</code></pre>
 
 <p>
-RECOMMEND GRAFANA
+The following example will return all of the recorded "temperature" measurements within the last one day using Python. You will need the <a href="https://influxdb-client.readthedocs.io/">influxdb Python package</a>.
+</p>
+
+<pre><code>
+import influxdb
+
+client = influxdb.InfluxDBClient(host="mosquitto.chem.wisc.edu",
+                                 database="homie")
+
+result = c.query("SELECT value FROM temperature WHERE time > now() - 1d")
+
+</code></pre>
+
+<p>
+We have also set-up a <a href="https://grafana.com/">grafana</a> appliance with this database as a source.
+Check it out at <a href="grafana.chem.wisc.edu">grafana.chem.wisc.edu</a>.
 </p>
 
 <hr>
 
 <p>
+<a href="https://git.chem.wisc.edu/shop/mqtt">source</a>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>: no copyright
 </p>
 

@@ -16,3 +16,20 @@ body {
   text-align: left;
   overflow-y: scroll;
 }
+
+pre {
+  width: 80ch;
+  padding: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+  overflow-y: hidden;
+  font-size: 15.3px;
+  background: #ffffff;
+  border: 1px solid #c5c8c6;
+}
+
+code {
+  background: #ffffff;
+  color: #c82829
+}
