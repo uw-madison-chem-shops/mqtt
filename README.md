@@ -15,5 +15,5 @@ This machine needs the following ports to be open to the campus network:
 
 To run:
 ```
-$ docker-compose up --build
+$ docker-compose up -d --build
 ```
