@@ -11,15 +11,19 @@ services:
       - 8086:8086
     volumes:
       - influxdb:/var/lib/influxdb
+    env_file:
+      - ./influxdb.env
   write-influx:
     build: ./write-influx
     depends_on:
       - broker
       - db
+    env_file:
+      - ./influxdb.env
   web:
     build: ./web
     ports:
-      - 80:80
+      - 8080:80
     depends_on:
       - broker
       - db
