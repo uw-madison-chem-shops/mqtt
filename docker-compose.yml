@@ -4,6 +4,8 @@ services:
   broker:
     build: ./mosquitto
     restart: unless-stopped
+    ports:
+      - 1883:1883
   db:
     build: ./influxdb
     restart: unless-stopped
@@ -19,6 +21,8 @@ services:
       - db
     env_file:
       - ./influxdb.env
+    ports:
+      - 8086:8086
   web:
     build: ./web
     restart: unless-stopped

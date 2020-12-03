@@ -9,7 +9,7 @@
 
 <body>
 
-<h1>mosquitto.chem.wisc.edu</h1>
+<h1>mqtt.chem.wisc.edu</h1>
 
 <hr>
 
@@ -24,12 +24,7 @@ In particular, this server hosts:
 </ul>
 
 <p>
-This server is purposefully isolated to the campus network. <br>
-If you are reading this, congrats---you're on the network.
-</p>
-
-<p>
-This server is maintained by Blaise Thompson and Alan Silver. <br>
+This server is maintained by Blaise Thompson and Chemistry Comphelp. <br>
 Please contact them with any questions or concerns.
 </p>
 
@@ -57,8 +52,17 @@ We recommend:
 </ul>
 
 <p>
+To see all topic updates on your command line:
+</p>
+
+<pre><code>
+mosquitto_sub -h mqtt.chem.wisc.edu -t "#" --verbose
+
+</code></pre>
+
+<p>
 You'll need a password to publish to this broker.
-Talk to Blaise Thompson or Alan Silver if you want to start publishing.
+Talk to Blaise Thompson or Chemistry Comphelp if you want to start publishing.
 </p>
 
 <h2>influxdb</h2>
@@ -70,7 +74,6 @@ This structure introduces a "device" topology.
 
 <p>
 This server stores all homie device history to an <a href="https://www.influxdata.com/">influx</a> time-series database.
-Anyone on the campus network can query this database.
 Importantly, only homie-convention compliant MQTT topics are stored---other published topics are not recorded in any permanent way.
 </p>
 
@@ -86,11 +89,24 @@ All of the additional information that is represented within the homie hierarchy
 </p>
 
 <p>
+Anyone on the campus network can query this database using the following read-only account:
+</p>
+
+<pre><code>
+username: user
+password: xtssxgxy
+
+</code></pre>
+
+<p>
 The following example will return all of the recorded "temperature" measurements within the last one day using curl.
 </p>
 
 <pre><code>
-curl -G 'mosquitto.chem.wisc.edu:8086/query?pretty=true' --data-urlencode "db=homie" --data-urlencode "q=SELECT \"value\" FROM \"temperature\" WHERE time > now() - 1d"
+curl -u user:xtssxgxy \
+-G "mqtt.chem.wisc.edu:8086/query?pretty=true" \
+--data-urlencode "db=homie" \
+--data-urlencode "q=SELECT value FROM temperature WHERE time > now()-1d"
 
 </code></pre>
 
@@ -101,22 +117,25 @@ The following example will return all of the recorded "temperature" measurements
 <pre><code>
 import influxdb
 
-client = influxdb.InfluxDBClient(host="mosquitto.chem.wisc.edu",
-                                 database="homie")
+client = influxdb.InfluxDBClient(host="mqtt.chem.wisc.edu",
+                                 database="homie",
+                                 username="user",
+                                 password="xtssxgxy")
 
-result = c.query("SELECT value FROM temperature WHERE time > now() - 1d")
+result = client.query("SELECT value FROM temperature WHERE time > now()-1d")
 
 </code></pre>
 
 <p>
 We have also set-up a <a href="https://grafana.com/">grafana</a> appliance with this database as a source.
-Check it out at <a href="grafana.chem.wisc.edu">grafana.chem.wisc.edu</a>.
+You will need Chemistry Department LDAP credentials to log in.
+Check it out at <a href="https://grafana.chem.wisc.edu">grafana.chem.wisc.edu</a>.
 </p>
 
 <hr>
 
 <p>
-<a href="https://git.chem.wisc.edu/shop/mqtt">source</a>
+<a href="https://git.chem.wisc.edu/infrastructure/mqtt">source</a>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>: no copyright
 </p>
