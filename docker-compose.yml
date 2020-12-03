@@ -13,6 +13,8 @@ services:
       - influxdb:/var/lib/influxdb
     env_file:
       - ./influxdb.env
+    ports:
+      - 8086:8086
   write-influx:
     build: ./write-influx
     restart: unless-stopped
@@ -21,8 +23,6 @@ services:
       - db
     env_file:
       - ./influxdb.env
-    ports:
-      - 8086:8086
   web:
     build: ./web
     restart: unless-stopped
