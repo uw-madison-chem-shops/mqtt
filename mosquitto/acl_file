@@ -1,9 +1,15 @@
 topic read #
 
+user bertram
+topic readwrite homie/#
+
 user blaise
 topic readwrite #
 
-user bertram
+user garand
+topic readwrite homie/#
+
+user goldsmith
 topic readwrite homie/#
 
 user wright
