@@ -23,3 +23,14 @@ Volumes:
 This compose file will create a docker volume `mqtt_influxdb`.
 This volume contains the influx database itself and should be backed up.
 On the host machine it appears at `/var/lib/docker/volumes/mqtt_influxdb/`.
+
+## Repository
+
+This repository is being mirrored to several version control systems in an attempt to ensure maximum availability.
+
+| name             | url                                                           |
+| ---------------- | ------------------------------------------------------------- |
+| blaise           | https://git.blaise.zone/uw-madison-chem-shops/mqtt.git/about/ | 
+| Codeburg         | https://codeberg.org/uw-madison-chem-shops/mqtt               |
+| GitHub (primary) | https://github.com/uw-madison-chem-shops/mqtt                 |
+| GitLab           | https://gitlab.com/uw-madison-chem-shops/mqtt                 |
