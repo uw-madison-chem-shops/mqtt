@@ -4,9 +4,21 @@ services:
     restart: unless-stopped
     ports:
       - 1883:1883
-  web:
-    build: ./web
+  webserver:
+    image: nginx:mainline
     restart: unless-stopped
     ports:
       - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf/:/usr/share/nginx/html/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw:wq
+
+
 
