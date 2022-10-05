@@ -1,28 +1,9 @@
-version: '3.3'
-
 services:
   broker:
     build: ./mosquitto
     restart: unless-stopped
     ports:
       - 1883:1883
-  db:
-    build: ./influxdb
-    restart: unless-stopped
-    volumes:
-      - influxdb:/var/lib/influxdb
-    env_file:
-      - ./influxdb.env
-    ports:
-      - 8086:8086
-  write-influx:
-    build: ./write-influx
-    restart: unless-stopped
-    depends_on:
-      - broker
-      - db
-    env_file:
-      - ./influxdb.env
   web:
     build: ./web
     restart: unless-stopped
@@ -31,5 +12,3 @@ services:
       - db
       - write-influx
 
-volumes:
-  influxdb:
