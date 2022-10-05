@@ -7,8 +7,4 @@ services:
   web:
     build: ./web
     restart: unless-stopped
-    depends_on:
-      - broker
-      - db
-      - write-influx
 
