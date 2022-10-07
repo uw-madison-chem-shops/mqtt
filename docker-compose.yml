@@ -4,21 +4,22 @@ services:
     restart: unless-stopped
     ports:
       - 1883:1883
-  webserver:
-    image: nginx:mainline
-    restart: unless-stopped
+  swag:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=US/Chicago
+      - URL=mqtt.chem.wisc.edu
+      - VALIDATION=http
+      - SUBDOMAINS=www,
+    volumes:
+      - ./nginx/conf:/config
     ports:
-      - 80:80
       - 443:443
-    volumes:
-      - ./nginx/conf/:/usr/share/nginx/html/:ro
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-
-
+      - 80:80
+    restart: unless-stopped
 
