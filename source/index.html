@@ -15,17 +15,14 @@
 
 <p>
 This server hosts an <a href="https://en.wikipedia.org/wiki/MQTT">MQTT</a> broker for "internet of things" applications within the <a href="https://chem.wisc.edu">Department of Chemistry</a> at the <a href="https://wisc.edu">University of Wisconsin-Madison</a>. <br>
-In particular, this server hosts:
 </p>
 
-<ul>
-  <li><a href="https://mosquitto.org/">mosquitto</a>, an MQTT broker</li>
-  <li><a href="https://www.influxdata.com/">influxdb</a>, a time series database</li>
-</ul>
-
 <p>
-This server is maintained by Blaise Thompson and Chemistry Comphelp. <br>
+This server is maintained by Blaise Thompson and the Chemistry Instrument Shop.
 Please contact them with any questions or concerns.
+This service is "best-effort" and uptime is not guaranteed.
+Please design your instrumentation software to be robust in the event of an outage.
+Luckily MQTT's core design makes this relatively easy!
 </p>
 
 <h2>mosquitto</h2>
@@ -62,75 +59,36 @@ mosquitto_sub -h mqtt.chem.wisc.edu -t "#" --verbose
 
 <p>
 You'll need a password to publish to this broker.
-Talk to Blaise Thompson or Chemistry Comphelp if you want to start publishing.
+Talk to Blaise Thompson to get a password.
 </p>
 
-<h2>influxdb</h2>
+<h2>homie</h2>
 
 <p>
-The Chemistry Department has standardized on the <a href="https://homieiot.github.io/">homie convention</a>.
-This convention imposes a well-defined structure on top of the basic MQTT communication layer.
-This structure introduces a "device" topology.
-
-<p>
-This server stores all homie device history to an <a href="https://www.influxdata.com/">influx</a> time-series database.
-Importantly, only homie-convention compliant MQTT topics are stored---other published topics are not recorded in any permanent way.
+MQTT doesn't have any data recording capabilities built-in.
+It's easy to set up your own little recording application, or you can build on top of our infrastructure by using the Homie Convention.
 </p>
 
 <p>
-While we make every attempt to prevent data loss, please do not treat this database as an archive.
-You are responsible for saving data that you care about in a more permanent way.
-Device history older than two years will automatically be deleted.
+We have built tooling around the <a href="https://homieiot.github.io">Homie convention</a>.
+Any data published to this server obeying the homie convention will be automatically recorded into our time series database, Graphite.
+We also have a Grafana appliance set up to visualize data from Graphite.
 </p>
+
+<h3>applications</h3>
 
 <p>
-Homie data is written to the database with each node corresponding to one field.
-All of the additional information that is represented within the homie hierarchy is stored as tags.
+Here are some common data.
 </p>
 
-<p>
-Anyone on the campus network can query this database using the following read-only account:
-</p>
+<ul>
+  <li>CO2 Monitoring</li>
+  <li>Hamers Group</li>
+  <li>Lab Weather Stations</li>
+  <li>Wickens Group</li>
+  <li>Zanni Group</li>
+</ul>
 
-<pre><code>
-username: user
-password: xtssxgxy
-
-</code></pre>
-
-<p>
-The following example will return all of the recorded "temperature" measurements within the last one day using curl.
-</p>
-
-<pre><code>
-curl -u user:xtssxgxy \
--G "mqtt.chem.wisc.edu:8086/query?pretty=true" \
---data-urlencode "db=homie" \
---data-urlencode "q=SELECT value FROM temperature WHERE time > now()-1d"
-
-</code></pre>
-
-<p>
-The following example will return all of the recorded "temperature" measurements within the last one day using Python. You will need the <a href="https://influxdb-client.readthedocs.io/">influxdb Python package</a>.
-</p>
-
-<pre><code>
-import influxdb
-
-client = influxdb.InfluxDBClient(host="mqtt.chem.wisc.edu",
-                                 database="homie",
-                                 username="user",
-                                 password="xtssxgxy")
-
-result = client.query("SELECT value FROM temperature WHERE time > now()-1d")
-
-</code></pre>
-
-<p>
-We have also set-up a <a href="https://grafana.com/">grafana</a> appliance with this database as a source.
-You will need Chemistry Department LDAP credentials to log in.
-Check it out at <a href="https://grafana.chem.wisc.edu">grafana.chem.wisc.edu</a>.
-</p>
 
 <hr>
 
