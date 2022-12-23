@@ -15,9 +15,8 @@ services:
       - TZ=US/Chicago
       - URL=mqtt.chem.wisc.edu
       - VALIDATION=http
-      - SUBDOMAINS=www,
     volumes:
-      - ./nginx/conf:/config
+      - ./source:/config/www
     ports:
       - 443:443
       - 80:80
