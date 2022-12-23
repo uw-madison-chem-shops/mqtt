@@ -4,9 +4,21 @@ services:
     restart: unless-stopped
     ports:
       - 1883:1883
-  web:
-    build: ./web
-    restart: unless-stopped
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - URL=mqtt.chem.wisc.edu
+      - VALIDATION=http
+    volumes:
+      - ./source:/config/www
     ports:
+      - 443:443
       - 80:80
+    restart: unless-stopped
 
