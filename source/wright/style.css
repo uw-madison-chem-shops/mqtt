@@ -1,0 +1,86 @@
+a {
+  text-decoration: none;
+  color: #4271ae;
+}
+
+body {
+  font-family: 'DejaVu Sans Mono', monospace;
+  margin: 40px auto;
+  min-width: 80ch;
+  max-width: 80ch;
+  line-height: 1.5;
+  font-size: 16px;
+  background-color: #1d1f21;
+  color: #c5c8c6;
+  padding: 0 10px;
+  text-align: left;
+  overflow-y: scroll;
+}
+
+pre {
+  width: 80ch;
+  padding: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+  overflow-y: hidden;
+  font-size: 15.3px;
+  background: #ffffff;
+  border: 1px solid #c5c8c6;
+}
+
+code {
+  background: #ffffff;
+  color: #c82829
+}
+
+img {
+  width: 100%;
+  margin: 0px auto;
+  margin-bottom: 1em;
+}
+
+
+
+
+
+.navbar {
+  overflow: hidden;
+  background-color: #373b41;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #c5c8c6;
+  text-align: center;
+  padding: 14px 30px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: #cc6666;
+  color: #c5c8c6;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  min-width: 80ch;
+  max-width: 80ch;
+
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
