@@ -5,20 +5,10 @@ services:
     ports:
       - 1883:1883
   swag:
-    image: lscr.io/linuxserver/swag:latest
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=US/Chicago
-      - URL=mqtt.chem.wisc.edu
-      - VALIDATION=http
+    image: nginx:mainline
     volumes:
-      - ./source:/config/www
+      - ./source:/usr/share/nginx/html
     ports:
-      - 443:443
       - 80:80
     restart: unless-stopped
 
