@@ -24,6 +24,9 @@ topic readwrite homie/#
 user mcmahon 
 topic readwrite homie/#
 
+user player
+topic readwrite play/#
+
 user room
 topic readwrite homie/#
 
