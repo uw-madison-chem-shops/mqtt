@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" name="viewport" content="width=80ch">
+  <title>mosquitto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="body">
+
+<script src="script.js"></script>
+
+<div id="navbar" class="navbar sticky">
+  <a id="nav-hour" href="javascript:displayHour()">hour</a>
+  <a id="nav-day" href="javascript:displayDay()">day</a>
+  <a class="active" id="nav-week" href="javascript:displayWeek()">week</a>
+  <a id="nav-month" href="javascript:displayMonth()">month</a>
+  <a id="nav-year" href="javascript:displayYear()">year</a>
+  <a id="nav-all" href="javascript:displayAll()">all</a>
+</div>
+
+<h1 style="margin-top:75px;">Goldsmith Group MQTT Dashboard</h1>
+
+<hr>
+
+<h2>lab weather</h2>
+
+<h3>temperature</h3>
+
+<img src='http://graphite.chem.wisc.edu/render/?fontSize=14&width=1200&height=800&target=alias(goldsmith.weather.000001.bme680.temperature,%223317%20-%20Shine%20Laser%22)&target=alias(goldsmith.weather.000004.bme280.temperature,%224367%20-%20Center%20Bay%22)&target=alias(goldsmith.weather.000000.bme680.temperature,%224367%20-%20Southwest%20Bay%22)&target=alias(goldsmith.weather.000002.bme680.temperature,%224367%20-%20Southeast%20Bay%22)&target=alias(goldsmith.weather.000003.bme280.temperature,%224367%20-%20Northeast%20Bay%22)&from=-24hours&vtitle=Temperature%20(C)'>
+<br>
+<a href="http://graphite.chem.wisc.edu/render/?target=aliasByNode(room.weather.*.*.*.temperature, 2)&from=-1w&format=csv">Download this data as a CSV.</a>
+
+<h3>humidity</h3>
+
+<img src="http://graphite.chem.wisc.edu/render/?fontSize=14&width=1200&height=800&target=alias(goldsmith.weather.000001.bme680.humidity,%223317%20-%20Shine%20Laser%22)&target=alias(goldsmith.weather.000004.bme280.humidity,%224367%20-%20Center%20Bay%22)&target=alias(goldsmith.weather.000000.bme680.humidity,%224367%20-%20Southwest%20Bay%22)&target=alias(goldsmith.weather.000002.bme680.humidity,%224367%20-%20Southeast%20Bay%22)&target=alias(goldsmith.weather.000003.bme280.humidity,%224367%20-%20Northeast%20Bay%22)&from=-24hours&vtitle=Humidity%20(C)">
+<br>
+<a href="http://graphite.chem.wisc.edu/render/?target=aliasByNode(room.weather.*.*.*.humidity, 2)&from=-1w&format=csv">Download this data as a CSV.</a>
+
+<h3>barometric pressure</h3>
+
+<img src='http://graphite.chem.wisc.edu/render/?width=704&height=400&width=704&height=500&fontSize=18&target=aliasByNode(goldsmith.weather.*.*.pressure, 2)&from=-1w'>
+<br>
+<a href="http://graphite.chem.wisc.edu/render/?target=aliasByNode(room.weather.*.*.*.pressure, 2)&from=-1w&format=csv">Download this data as a CSV.</a>
+
+</body>
+</html>
