@@ -24,6 +24,7 @@ function updateLinks(expression) {
 function deActivate() {
   document.getElementById("nav-hour").className = "";
   document.getElementById("nav-day").className = "";
+  document.getElementById("nav-36hour").className = "";
   document.getElementById("nav-week").className = "";
   document.getElementById("nav-month").className = "";
   document.getElementById("nav-year").className = "";
@@ -34,6 +35,12 @@ function displayHour() {
   deActivate();
   document.getElementById("nav-hour").className = "active";
   updateLinks("-1h");
+}
+
+function display36Hour() {
+  deActivate();
+  document.getElementById("nav-36hour").className = "active";
+  updateLinks("-36h")
 }
 
 function displayDay() {

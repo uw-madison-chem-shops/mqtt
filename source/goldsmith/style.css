@@ -39,10 +39,6 @@ img {
   margin-bottom: 1em;
 }
 
-
-
-
-
 .navbar {
   overflow: hidden;
   background-color: #373b41;
@@ -82,4 +78,11 @@ img {
 
 .sticky + .content {
   padding-top: 60px;
+}
+
+.graph {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
 }
