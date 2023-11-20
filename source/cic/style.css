@@ -38,7 +38,10 @@ img {
   margin: 0px auto;
   margin-bottom: 1em;
 }
-
+table, th, td {
+  border:1px solid black;
+  
+}
 
 
 
