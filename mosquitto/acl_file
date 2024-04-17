@@ -36,6 +36,9 @@ topic readwrite homie/#
 user player
 topic readwrite play/#
 
+user stahl
+topic readwrite homie/#
+
 user room
 topic readwrite homie/#
 
